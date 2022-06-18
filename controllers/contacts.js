@@ -3,7 +3,7 @@ const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId;
 
 const getAll = async (req, res, next) => {
-  const result = await mongodb.getDb().db().collection('Contacts').find();
+  const result = await mongodb.getDb().db().collection('contacts').find();
   result.toArray().then((lists) => {
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(lists);
@@ -15,7 +15,7 @@ const getSingle = async (req, res, next) => {
   const result = await mongodb
     .getDb()
     .db()
-    .collection('Contacts')
+    .collection('contacts')
     .find({ _id: userId });
   result.toArray().then((lists) => {
     res.setHeader('Content-Type', 'application/json');
@@ -35,7 +35,7 @@ const postContact = async (req, res, next) => {
   };
   console.log(contact);
   // insertOne() only takes one parameter since it only needs to know what to place
-  const response = await mongodb.getDb().db().collection('Contacts').insertOne(contact);
+  const response = await mongodb.getDb().db().collection('contacts').insertOne(contact);
   console.log(response);
   if (response.acknowledged) {
     res.status(201).json(response);
@@ -54,7 +54,7 @@ const updateContact = async (req, res, next) => {
     birthday: req.body.birthday
   };
   // replaceOne() takes a filter, in this case we want the specific userId; and what to replace it with (contact)
-  const response = await mongodb.getDb().db().collection('Contacts').replaceOne({ _id: userId }, contact);
+  const response = await mongodb.getDb().db().collection('contacts').replaceOne({ _id: userId }, contact);
 console.log(response);
 if (response.modifiedCount > 0) {
   res.status(204).send();
@@ -65,7 +65,7 @@ if (response.modifiedCount > 0) {
 
 const deleteContact = async (req, res, next) => {
   const userId = new ObjectId(req.params.id);
-  const response = await mongodb.getDb().db().collection('Contacts').remove({ _id: userId }, true);
+  const response = await mongodb.getDb().db().collection('contacts').remove({ _id: userId }, true);
   console.log(response);
   if (response.deletedCount > 0) {
     res.status(204).send();

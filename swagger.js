@@ -5,7 +5,7 @@ const doc = {
     title: 'Riley Hansen Contacts API',
     description: 'Contacts API'
   },
-  host: 'https://cse341-personal04.herokuapp.com',
+  host: 'cse341-personal04.herokuapp.com',
   schemes: ['https']
 };
 // change host to "https://cse341-personal04.herokuapp.com"
